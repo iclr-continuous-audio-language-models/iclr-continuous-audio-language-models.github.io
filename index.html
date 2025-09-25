@@ -1,0 +1,408 @@
+
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title> Continuous Audio Language Models </title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="./page_files/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="./page_files/scrolling-nav.css" rel="stylesheet">
+
+  <style>
+    .image-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 50vh;
+
+    }
+    h2 {
+    text-decoration: underline;
+  }
+
+    .image-container img {
+      max-width: 75%;
+      max-height: 100%;
+
+    }
+  </style>
+
+
+</head>
+
+<body id="page-top">
+
+  <header class="bg-dark text-white">
+
+    <div class="container text-center">
+      <h1>Continuous Audio Language Models
+      </h1>
+    </div>
+  </header>
+
+  <div class="image-container">
+    <img src="src/figure.png" alt="Your Image">
+  </div>
+
+  <!-- Abstract Section -->
+  <section id="abstract" class="py-5">
+      <div class="container">
+        <h2>Abstract</h2>
+        <p>
+          Audio Language Models (ALM) have emerged as the dominant paradigm for speech and music generation by representing audio as sequences of discrete tokens. Yet, unlike text tokens, which are invertible, audio tokens are extracted from lossy codecs with a limited bitrate. As a consequence, increasing audio quality requires generating more tokens, which imposes a trade-off between fidelity and computational cost. We address this issue by studying Continuous Audio Language Models (CALM). These models instantiate a large Transformer backbone that produces a contextual embedding at every timestep. This sequential information then conditions an MLP that generates the next continuous frame of an audio VAE through consistency modeling. By avoiding lossy compression, CALM achieves higher quality at lower computational cost than their discrete counterpart. <br>
+        <br>
+          On this webpage, we show some results of our speech model as well as our music models. We illustrate as well the ablation study of the paper with some music samples.
+      
+      </p>
+      </div>
+    </section>
+
+<!-- Speech Language Model Section -->
+<section id="speech" class="py-5">
+  <div class="container">
+    <h2>Speech Language Model</h2>
+    <p>
+      This section presents speech samples generated using a 3-second prompt. Key details of the setup and results include:
+      <ul>
+        <li>
+          Starting from a Helium pretrained 2B parameters text language model [1], we adopt the <strong>inner monologue framework</strong> from [2], where the model is fine-tuned with an audio stream delayed by 80 ms after the textual stream.</li>
+          </ul>
+        </li>
+        <li>
+          <strong>CALM setting:</strong> Audio stream is composed of continuous latents predicted via 1-step consistency modeling.
+        </li>
+        <li>
+          <strong>RQ-Transformer setting:</strong> Audio stream is produced using an 8-RVQ Mimi Codec and predicted in parallel by an RQ-Transformer.
+        </li>
+        <li>
+          <strong>Performance:</strong>  CALM outperforms RQ-Transformer on meaningfulness. We believe this may be due to the backbone allocating less capacity to audio manipulation, leaving more for text prediction in the CALM setting. As well, we can see that temperature has a huge impact for both models, validating our heuristic for temperature sampling for CALM. </li>
+        <li>
+          <strong>Efficiency:</strong> 
+          <ul>
+            <li>Sampling each latent from the consistency head is 12.3× faster than with the RQ-Transformer.</li>
+            <li>Generating 30 seconds of audio is overall 1.3× faster with CALM than with the baseline.</li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+          <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead class="thead-light">
+          <tr>
+            <th>Prompt</th>
+            <th>RQ-Transformer 8 RVQ<br>temp=0.8 (baseline)</th>
+            <th>CALM Consistency 1 Step<br>temp=0.8</th>
+            <th>CALM Consistency 1 Step<br>temp=1.0</th>
+            <th>RQ-Transformer 8 RVQ<br>temp=1.0</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Index 0 -->
+          <tr>
+            <td><audio controls src="src/speech/0/prompt.wav"></audio></td>
+            <td><audio controls src="src/speech/0/8rvq.wav"></audio></td>
+            <td><audio controls src="src/speech/0/consistency.wav"></audio></td>
+            <td><audio controls src="src/speech/0/consistency_no_temp.wav"></audio></td>
+            <td><audio controls src="src/speech/0/8rvq_no_temp.wav"></audio></td>
+          </tr>
+          <!-- Index 1 -->
+          <tr>
+            <td><audio controls src="src/speech/22/prompt.wav"></audio></td>
+            <td><audio controls src="src/speech/22/8rvq.wav"></audio></td>
+            <td><audio controls src="src/speech/22/consistency.wav"></audio></td>
+            <td><audio controls src="src/speech/22/consistency_no_temp.wav"></audio></td>
+            <td><audio controls src="src/speech/22/8rvq_no_temp.wav"></audio></td>
+          </tr>
+          <!-- Index 2 -->
+          <tr>
+            <td><audio controls src="src/speech/5/prompt.wav"></audio></td>
+            <td><audio controls src="src/speech/5/8rvq.wav"></audio></td>
+            <td><audio controls src="src/speech/5/consistency.wav"></audio></td>
+            <td><audio controls src="src/speech/5/consistency_no_temp.wav"></audio></td>
+            <td><audio controls src="src/speech/5/8rvq_no_temp.wav"></audio></td>
+          </tr>
+          <!-- Index 3 -->
+          <tr>
+              <td><audio controls src="src/speech/28/prompt.wav"></audio></td>
+              <td><audio controls src="src/speech/28/8rvq.wav"></audio></td>
+              <td><audio controls src="src/speech/28/consistency.wav"></audio></td>
+              <td><audio controls src="src/speech/28/consistency_no_temp.wav"></audio></td>
+              <td><audio controls src="src/speech/28/8rvq_no_temp.wav"></audio></td>
+            </tr>
+            <tr>
+            <td><audio controls src="src/speech/9/prompt.wav"></audio></td>
+            <td><audio controls src="src/speech/9/8rvq.wav"></audio></td>
+            <td><audio controls src="src/speech/9/consistency.wav"></audio></td>
+            <td><audio controls src="src/speech/9/consistency_no_temp.wav"></audio></td>
+            <td><audio controls src="src/speech/9/8rvq_no_temp.wav"></audio></td>
+          </tr>
+          <!-- Index 4 -->
+          <tr>
+            <td><audio controls src="src/speech/4/prompt.wav"></audio></td>
+            <td><audio controls src="src/speech/4/8rvq.wav"></audio></td>
+            <td><audio controls src="src/speech/4/consistency.wav"></audio></td>
+            <td><audio controls src="src/speech/4/consistency_no_temp.wav"></audio></td>
+            <td><audio controls src="src/speech/4/8rvq_no_temp.wav"></audio></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+  
+<!-- Music Generation Section -->
+<section id="music" class="py-5 bg-light">
+  <div class="container">
+    <h2>Music Generation</h2>
+    <p>
+      We compare our music generation models, all of which use a backbone with 1.35B parameters (from MusicGen Medium):
+      <ul>
+        <li><strong>Baseline:</strong> RQ-Transformer with 32 RVQ. </li>
+        <li><strong>CALM with TrigFlow (100 steps): </strong> Slower inference than the baseline.</li>
+        <li><strong>CALM with Consistency (4 steps): </strong> Inference is 1.9× faster than the baseline.</li>
+        <li><strong>CALM with Consistency (1 step): </strong> Inference is 2.1× faster than the baseline.</li>
+        <li><strong>Retrained MusicGen [3]:</strong> Trained on our dataset, with inference 1.3× faster than the baseline.</li>
+      </ul>
+    </p>
+          <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead class="thead-light">
+          <tr>
+            <th>Prompt</th>
+            <th>RQ-Transformer 32 RVQ (baseline) FAD: 1.06</th>
+            <th>CALM TrigFlow 100 steps FAD: 0.64</th>
+            <th>CALM Consistency 4 steps FAD: 0.71</th>
+            <th>CALM Consistency 1 step FAD: 0.83</th>
+            <th>Retrained MusicGen FAD: 1.72</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Index 0 -->
+          <!-- Index 2 -->
+          <tr>
+            <td><audio controls src="src/music/2/prompt.wav"></audio></td>
+            <td><audio controls src="src/music/2/32rvq.wav"></audio></td>
+            <td><audio controls src="src/music/2/trigflow.wav"></audio></td>
+            <td><audio controls src="src/music/2/consistency_4.wav"></audio></td>
+            <td><audio controls src="src/music/2/consistency_1.wav"></audio></td>
+            <td><audio controls src="src/music/2/musicgen.wav"></audio></td>
+          </tr>
+          <!-- Index 3 -->
+
+          <tr>
+            <td><audio controls src="src/music/3/prompt.wav"></audio></td>
+            <td><audio controls src="src/music/3/32rvq.wav"></audio></td>
+            <td><audio controls src="src/music/3/trigflow.wav"></audio></td>
+            <td><audio controls src="src/music/3/consistency_4.wav"></audio></td>
+            <td><audio controls src="src/music/3/consistency_1.wav"></audio></td>
+            <td><audio controls src="src/music/3/musicgen.wav"></audio></td>
+          </tr>
+          <tr>
+              <td><audio controls src="src/music/9/prompt.wav"></audio></td>
+              <td><audio controls src="src/music/9/32rvq.wav"></audio></td>
+              <td><audio controls src="src/music/9/trigflow.wav"></audio></td>
+              <td><audio controls src="src/music/9/consistency_4.wav"></audio></td>
+              <td><audio controls src="src/music/9/consistency_1.wav"></audio></td>
+              <td><audio controls src="src/music/9/musicgen.wav"></audio></td>
+            </tr>
+            <tr>
+              <td><audio controls src="src/music/0/prompt.wav"></audio></td>
+              <td><audio controls src="src/music/0/32rvq.wav"></audio></td>
+              <td><audio controls src="src/music/0/trigflow.wav"></audio></td>
+              <td><audio controls src="src/music/0/consistency_4.wav"></audio></td>
+              <td><audio controls src="src/music/0/consistency_1.wav"></audio></td>
+              <td><audio controls src="src/music/0/musicgen.wav"></audio></td>
+            </tr>
+
+          <!-- Index 4 -->
+          <tr>
+            <td><audio controls src="src/music/4/prompt.wav"></audio></td>
+            <td><audio controls src="src/music/4/32rvq.wav"></audio></td>
+            <td><audio controls src="src/music/4/trigflow.wav"></audio></td>
+            <td><audio controls src="src/music/4/consistency_4.wav"></audio></td>
+            <td><audio controls src="src/music/4/consistency_1.wav"></audio></td>
+            <td><audio controls src="src/music/4/musicgen.wav"></audio></td>
+          </tr>
+          <!-- Index 4 -->
+          <!-- Index 4 -->
+          <tr>
+              <td><audio controls src="src/music/11/prompt.wav"></audio></td>
+              <td><audio controls src="src/music/11/32rvq.wav"></audio></td>
+              <td><audio controls src="src/music/11/trigflow.wav"></audio></td>
+              <td><audio controls src="src/music/11/consistency_4.wav"></audio></td>
+              <td><audio controls src="src/music/11/consistency_1.wav"></audio></td>
+              <td><audio controls src="src/music/11/musicgen.wav"></audio></td>
+            </tr>
+
+          <tr>
+              <td><audio controls src="src/music/6/prompt.wav"></audio></td>
+              <td><audio controls src="src/music/6/32rvq.wav"></audio></td>
+              <td><audio controls src="src/music/6/trigflow.wav"></audio></td>
+              <td><audio controls src="src/music/6/consistency_4.wav"></audio></td>
+              <td><audio controls src="src/music/6/consistency_1.wav"></audio></td>
+              <td><audio controls src="src/music/6/musicgen.wav"></audio></td>
+            </tr>
+          <!-- Index 4 -->
+          <tr>
+              <td><audio controls src="src/music/7/prompt.wav"></audio></td>
+              <td><audio controls src="src/music/7/32rvq.wav"></audio></td>
+              <td><audio controls src="src/music/7/trigflow.wav"></audio></td>
+              <td><audio controls src="src/music/7/consistency_4.wav"></audio></td>
+              <td><audio controls src="src/music/7/consistency_1.wav"></audio></td>
+              <td><audio controls src="src/music/7/musicgen.wav"></audio></td>
+            </tr>
+                </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Ablation Section -->
+<section id="ablations" class="py-5 bg-light">
+  <div class="container">
+    <h2>Ablation Study</h2>
+    <p>
+      We illustrate here the ablation study of our paper in order to show the importance of each component of our model. We showcase it on Music Generation with CALM Consistency 4 steps. All the models have been trained 300k steps instead of 500k steps.
+      <ul>
+        <li><strong>Our model with Noise Augmentation, Short Context transformer and Head Batch Multiplier.</strong> CALM Consistency 4 steps.</li>
+        <li><strong>Without Noise Augmentation, Short Context transformer and Head Batch Multiplier.</strong> This configuration is very close to MAR [4]. It consists in just replacing the codec by a VAE and replacing the RQ-Transformer head by a consistency model. This model suffers from error accumulation, doesn't generate consistent music and tends to diverge (distorsion quickly happens).</li>
+        <li><strong>Without Short Context Transformer. </strong> Here, the addition of Noise Augmentation makes the model less sensitive to error accumulation. However, it quickly stops generating details focuses on the rhythmic and fades away during generation. This configuration is similar to the one used in [5] where the authors generate short single instrument music.</li>
+        <li><strong>Without Noise Augmentation. </strong> Here, there is no Noise Augmentation at training time but there is the Short Context Transformer that greatly helps the model to generate details. However there is still some error accumulation (see the 3rd sample).</li>
+        <li><strong>Without Head Batch Multiplier.</strong> Here, the model convergence is slower, its quality is lower for the same number of epochs.</li>
+      </ul>
+    </p>
+          <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead class="thead-light">
+          <tr>
+            <th>Prompt</th>
+            <th>Our Model</th>
+            <th>Without Noise Aug., Short Context Transformer, Head Batch Mult. </th>
+            <th>Without Short Context Transformer</th>
+            <th>Without Noise Aug.</th>
+            <th>Without Head Batch Mult.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><audio controls src="src/ablations/0/prompt.wav"></audio></td>
+            <td><audio controls src="src/ablations/0/best_model.wav"></audio></td>
+            <td><audio controls src="src/ablations/0/no_noise_no_shortformer.wav"></audio></td>
+            <td><audio controls src="src/ablations/0/no_shortformer.wav"></audio></td>
+            <td><audio controls src="src/ablations/0/no_noise.wav"></audio></td>
+            <td><audio controls src="src/ablations/0/no_multiplier.wav"></audio></td>
+          </tr>
+
+          <tr>
+            <td><audio controls src="src/ablations/1/prompt.wav"></audio></td>
+            <td><audio controls src="src/ablations/1/best_model.wav"></audio></td>
+            <td><audio controls src="src/ablations/1/no_noise_no_shortformer.wav"></audio></td>
+            <td><audio controls src="src/ablations/1/no_shortformer.wav"></audio></td>
+            <td><audio controls src="src/ablations/1/no_noise.wav"></audio></td>
+            <td><audio controls src="src/ablations/1/no_multiplier.wav"></audio></td>
+          </tr>
+          <tr>
+            <td><audio controls src="src/ablations/2/prompt.wav"></audio></td>
+            <td><audio controls src="src/ablations/2/best_model.wav"></audio></td>
+            <td><audio controls src="src/ablations/2/no_noise_no_shortformer.wav"></audio></td>
+            <td><audio controls src="src/ablations/2/no_shortformer.wav"></audio></td>
+            <td><audio controls src="src/ablations/2/no_noise.wav"></audio></td>
+            <td><audio controls src="src/ablations/2/no_multiplier.wav"></audio></td>
+          </tr>
+                </tbody>
+      </table>
+    </div>
+  </div>
+</section>  
+
+<!-- References Section -->
+<section id="references" class="py-5 bg-light">
+  <div class="container">
+    <h2>References</h2>
+    <ul>
+      <li>
+        [1] Kyutai <em>"Helium 1: a modular and multilingual LLM"</em> <a href="https://kyutai.org/2025/04/30/helium.html" target="_blank">website</a>, 2025.
+      </li>
+      <li>
+        [2] Défossez, A., Mazaré, L., Orsini, M., Royer, A., Pérez, P., Jégou, H., Grave, E., & Zeghidour, N. (2024). <em>Moshi: A speech-text foundation model for real-time dialogue</em>. arXiv preprint arXiv:2410.00037. Available at: <a href="https://arxiv.org/abs/2410.00037" target="_blank">https://arxiv.org/abs/2410.00037</a>
+      </li>
+      <li>
+        [3] Copet, J., Kreuk, F., Gat, I., Remez, T., Kant, D., Synnaeve, G., Adi, Y., & Défossez, A. <em>"Simple and Controllable Music Generation."</em> <a href="https://arxiv.org/abs/2306.05284" target="_blank">arXiv:2306.05284</a>, 2023.
+      </li>
+              <li>
+      [4] Li, T., Tian, Y., Li, H., Deng, M., & He, K. (2024). <em>Autoregressive Image Generation Without Vector Quantization</em>. arXiv preprint arXiv:2406.11838. Available at: <a href="https://arxiv.org/abs/2406.11838" target="_blank">https://arxiv.org/abs/2406.11838</a>
+              </li>
+              <li>
+                [5] Pasini, M., Nistal, J., Lattner, S., & Fazekas, G. (2024). <em>Continuous Autoregressive Models with Noise Augmentation Avoid Error Accumulation</em>. arXiv preprint arXiv:2411.18447. Available at: <a href="https://arxiv.org/abs/2411.18447" target="_blank">https://arxiv.org/abs/2411.18447</a>
+              </li>
+        
+    </ul>
+  </div>
+</section>
+
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <!-- <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p> -->
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="./page_files/jquery.min.js"></script>
+  <script src="./page_files/bootstrap.bundle.min.js"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="./page_files/jquery.easing.min.js"></script>
+
+  <!-- Custom JavaScript for this theme -->
+  <script src="./page_files/scrolling-nav.js"></script>
+
+  <script> function setupCallback(elem, elems) {
+    elem.addEventListener("play", function () {
+      for (var other of elems) {
+        if (other !== elem) {
+          other.pause();
+          // other.currentTime = 0.;
+        }
+      }
+    });
+  }
+  
+  document.addEventListener('DOMContentLoaded', function () {
+    var elems = document.body.getElementsByTagName("audio");
+    for (var elem of elems) {
+      setupCallback(elem, elems);
+    }
+  }); </script>
+</body></html>
+
+
+<script>
+  function setupCallback(elem, elems) {
+    elem.addEventListener("play", function () {
+      for (var other of elems) {
+        if (other !== elem) {
+          other.pause();
+          // other.currentTime = 0.;
+        }
+      }
+    });
+  }
+  document.addEventListener('DOMContentLoaded', function () {
+    var elems = document.body.getElementsByTagName("audio");
+    for (var elem of elems) {
+      setupCallback(elem, elems);
+    }
+  });
+  </script>
+      
