@@ -68,7 +68,7 @@
   <div class="container">
     <h2>Text-to-Speech (Update from the 21 Nov 2025)</h2>
     <p>
-      This section presents examples of text-to-speech generation on the Librispeech clean test set. The samples from DiTAR were picked from their webpage. The audios have not been cheripicked. For DSM and F5TTS we generated the samples from the public code.
+      This section presents examples of text-to-speech generation on the Librispeech clean test set. The samples from DiTAR were picked from their webpage. The audios have not been cheripicked. For DSM and F5TTS we generated the samples from the public code. Our CALM model uses only 
     </p>
 
     <div class="table-responsive">
@@ -80,7 +80,7 @@
             <th>F5TTS (NFE=32)</th>
             <th>DSM (16 RVQ)</th>
             <th>DiTAR (NFE=10)</th>
-            <th>CALM</th>
+            <th>CALM (NFE=1)</th>
           </tr>
         </thead>
         <tbody>
@@ -192,6 +192,117 @@
   </div>
 </section>
 
+<!-- CLAP-to-Music Section -->
+<section id="clap-to-music" class="py-5">
+  <div class="container">
+    <h2>CLAP-to-Music Generation (Update from the 21 Nov 2025)</h2>
+    <p>
+      This section presents music generated with a CLAP conditioning that are retrained on our dataset with the same backbone size (1.35B). The reference audio is encoded using CLAP, and we compare three models which are:
+      <ul>
+        <li><strong>MusicGen</strong></li>
+        <li><strong>32-RVQ RQ-Transformer</strong> </li>
+        <li><strong>Consistency CALM with 4 steps</strong></li>
+      </ul>
+    </p>
+    
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead class="thead-light">
+          <tr>
+            <th>Conditioning</th>
+            <th>MusicGen</th>
+            <th>32 RVQ RQ-Transformer</th>
+            <th>Consistency CALM with 4 steps</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!-- Rows 1 to 10 -->
+          <!-- Index 1 -->
+          <tr>
+            <td><audio controls src="src/claptomusic/1/reference.wav"></audio></td>
+            <td><audio controls src="src/claptomusic/1/d4bc654e_musicgen_q6_200_cfg_3.wav"></audio></td>
+            <td><audio controls src="src/claptomusic/1/9473d2d2_32rvq_q6_200_cfg_3.wav"></audio></td>
+            <td><audio controls src="src/claptomusic/1/0d1f1535_calm_q6_200_cfg_2.wav"></audio></td>
+          </tr>
+
+          <!-- Index 2 -->
+          <tr>
+            <td><audio controls src="src/claptomusic/2/reference.wav"></audio></td>
+            <td><audio controls src="src/claptomusic/2/d4bc654e_musicgen_q6_200_cfg_3.wav"></audio></td>
+            <td><audio controls src="src/claptomusic/2/9473d2d2_32rvq_q6_200_cfg_3.wav"></audio></td>
+            <td><audio controls src="src/claptomusic/2/0d1f1535_calm_q6_200_cfg_2.wav"></audio></td>
+          </tr>
+
+          <!-- Index 3 -->
+          <tr>
+            <td><audio controls src="src/claptomusic/3/reference.wav"></audio></td>
+            <td><audio controls src="src/claptomusic/3/d4bc654e_musicgen_q6_200_cfg_3.wav"></audio></td>
+            <td><audio controls src="src/claptomusic/3/9473d2d2_32rvq_q6_200_cfg_3.wav"></audio></td>
+            <td><audio controls src="src/claptomusic/3/0d1f1535_calm_q6_200_cfg_2.wav"></audio></td>
+          </tr>
+
+          <!-- Index 4 -->
+          <tr>
+            <td><audio controls src="src/claptomusic/4/reference.wav"></audio></td>
+            <td><audio controls src="src/claptomusic/4/d4bc654e_musicgen_q6_200_cfg_3.wav"></audio></td>
+            <td><audio controls src="src/claptomusic/4/9473d2d2_32rvq_q6_200_cfg_3.wav"></audio></td>
+            <td><audio controls src="src/claptomusic/4/0d1f1535_calm_q6_200_cfg_2.wav"></audio></td>
+          </tr>
+
+          <!-- Index 5 -->
+          <tr>
+            <td><audio controls src="src/claptomusic/5/reference.wav"></audio></td>
+            <td><audio controls src="src/claptomusic/5/d4bc654e_musicgen_q6_200_cfg_3.wav"></audio></td>
+            <td><audio controls src="src/claptomusic/5/9473d2d2_32rvq_q6_200_cfg_3.wav"></audio></td>
+            <td><audio controls src="src/claptomusic/5/0d1f1535_calm_q6_200_cfg_2.wav"></audio></td>
+          </tr>
+
+          <!-- Index 6 -->
+          <tr>
+            <td><audio controls src="src/claptomusic/6/reference.wav"></audio></td>
+            <td><audio controls src="src/claptomusic/6/d4bc654e_musicgen_q6_200_cfg_3.wav"></audio></td>
+            <td><audio controls src="src/claptomusic/6/9473d2d2_32rvq_q6_200_cfg_3.wav"></audio></td>
+            <td><audio controls src="src/claptomusic/6/0d1f1535_calm_q6_200_cfg_2.wav"></audio></td>
+          </tr>
+
+          <!-- Index 7 -->
+          <tr>
+            <td><audio controls src="src/claptomusic/7/reference.wav"></audio></td>
+            <td><audio controls src="src/claptomusic/7/d4bc654e_musicgen_q6_200_cfg_3.wav"></audio></td>
+            <td><audio controls src="src/claptomusic/7/9473d2d2_32rvq_q6_200_cfg_3.wav"></audio></td>
+            <td><audio controls src="src/claptomusic/7/0d1f1535_calm_q6_200_cfg_2.wav"></audio></td>
+          </tr>
+
+          <!-- Index 8 -->
+          <tr>
+            <td><audio controls src="src/claptomusic/8/reference.wav"></audio></td>
+            <td><audio controls src="src/claptomusic/8/d4bc654e_musicgen_q6_200_cfg_3.wav"></audio></td>
+            <td><audio controls src="src/claptomusic/8/9473d2d2_32rvq_q6_200_cfg_3.wav"></audio></td>
+            <td><audio controls src="src/claptomusic/8/0d1f1535_calm_q6_200_cfg_2.wav"></audio></td>
+          </tr>
+
+          <!-- Index 9 -->
+          <tr>
+            <td><audio controls src="src/claptomusic/9/reference.wav"></audio></td>
+            <td><audio controls src="src/claptomusic/9/d4bc654e_musicgen_q6_200_cfg_3.wav"></audio></td>
+            <td><audio controls src="src/claptomusic/9/9473d2d2_32rvq_q6_200_cfg_3.wav"></audio></td>
+            <td><audio controls src="src/claptomusic/9/0d1f1535_calm_q6_200_cfg_2.wav"></audio></td>
+          </tr>
+
+          <!-- Index 10 -->
+          <tr>
+            <td><audio controls src="src/claptomusic/10/reference.wav"></audio></td>
+            <td><audio controls src="src/claptomusic/10/d4bc654e_musicgen_q6_200_cfg_3.wav"></audio></td>
+            <td><audio controls src="src/claptomusic/10/9473d2d2_32rvq_q6_200_cfg_3.wav"></audio></td>
+            <td><audio controls src="src/claptomusic/10/0d1f1535_calm_q6_200_cfg_2.wav"></audio></td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
 
   
 <!-- Speech Language Model Section -->
