@@ -296,6 +296,101 @@
   </div>
 </section>
 
+<!-- Text-to-Music Section -->
+<section id="text-prompt-to-music" class="py-5">
+  <div class="container">
+    <h2>Text-to-Music Generation (Update from the 27 Nov)</h2>
+    <p>
+      This section presents music generated from textual prompts using our three models trained with the CLAP conditioner:
+      <ul>
+        <li><strong>MusicGen</strong></li>
+        <li><strong>32-RVQ RQ-Transformer</strong></li>
+        <li><strong>Consistency CALM with 4 steps</strong></li>
+      </ul>
+    </p>
+
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead class="thead-light">
+          <tr>
+            <th>Text Prompt</th>
+            <th>MusicGen</th>
+            <th>32 RVQ RQ-Transformer</th>
+            <th>Consistency CALM (4 steps)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Row 3 → Jazz -->
+          <tr>
+            <td>Relaxing jazz music with saxophone</td>
+            <td><audio controls src="src/texttomusic/musicgen_jazz.wav"></audio></td>
+            <td><audio controls src="src/texttomusic/32rvq_jazz.wav"></audio></td>
+            <td><audio controls src="src/texttomusic/calm_jazz.wav"></audio></td>
+          </tr>
+          <!-- Row 6 → Ambient -->
+          <tr>
+            <td>Dreamy ambient soundscape with airy pads</td>
+            <td><audio controls src="src/texttomusic/musicgen_ambient.wav"></audio></td>
+            <td><audio controls src="src/texttomusic/32rvq_ambient.wav"></audio></td>
+            <td><audio controls src="src/texttomusic/calm_ambient.wav"></audio></td>
+          </tr>
+          <!-- Row 7 → Drum & Bass -->
+          <tr>
+            <td>Energetic drum-and-bass with fast breakbeats</td>
+            <td><audio controls src="src/texttomusic/musicgen_dnb.wav"></audio></td>
+            <td><audio controls src="src/texttomusic/32rvq_dnb.wav"></audio></td>
+            <td><audio controls src="src/texttomusic/calm_dnb.wav"></audio></td>
+          </tr>
+          <!-- Row 8 → Techno -->
+          <tr>
+            <td>Hypnotic minimal techno with deep kick, subtle hi-hats, and evolving textures.</td>
+            <td><audio controls src="src/texttomusic/musicgen_techno.wav"></audio></td>
+            <td><audio controls src="src/texttomusic/32rvq_techno.wav"></audio></td>
+            <td><audio controls src="src/texttomusic/calm_techno.wav"></audio></td>
+          </tr>
+
+          <!-- Row 1 → RnB -->
+          <tr>
+            <td>RnB song with vocals and piano</td>
+            <td><audio controls src="src/texttomusic/musicgen_rnb.wav"></audio></td>
+            <td><audio controls src="src/texttomusic/32rvq_rnb.wav"></audio></td>
+            <td><audio controls src="src/texttomusic/calm_rnb.wav"></audio></td>
+          </tr>
+
+
+
+          <!-- Row 4 → Lo-fi -->
+          <tr>
+            <td>Warm lo-fi hip-hop beat with piano</td>
+            <td><audio controls src="src/texttomusic/musicgen_lofi.wav"></audio></td>
+            <td><audio controls src="src/texttomusic/32rvq_lofi.wav"></audio></td>
+            <td><audio controls src="src/texttomusic/calm_lofi.wav"></audio></td>
+          </tr>
+
+          <!-- Row 5 → Orchestral -->
+          <tr>
+            <td>Epic orchestral score with rising strings and triumphant brass.</td>
+            <td><audio controls src="src/texttomusic/musicgen_orchestral.wav"></audio></td>
+            <td><audio controls src="src/texttomusic/32rvq_orchestral.wav"></audio></td>
+            <td><audio controls src="src/texttomusic/calm_orchestral.wav"></audio></td>
+          </tr>
+
+          <!-- Row 2 → Reggae -->
+          <tr>
+            <td>A classic reggae song</td>
+            <td><audio controls src="src/texttomusic/musicgen_reggae.wav"></audio></td>
+            <td><audio controls src="src/texttomusic/32rvq_reggae.wav"></audio></td>
+            <td><audio controls src="src/texttomusic/calm_reggae.wav"></audio></td>
+          </tr>
+
+
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
   
 <!-- Speech Language Model Section -->
 <section id="speech" class="py-5">
